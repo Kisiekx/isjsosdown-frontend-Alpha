@@ -6,4 +6,15 @@ export const BanerContainer = styled.div`
   height: 80vh;
   background-image: url(${gradeint});
   background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1vh;
+`
+
+export const Title = styled.h1`
+  margin-top: 5vh;
+  font-size: 12vh;
+  color: white;
 `

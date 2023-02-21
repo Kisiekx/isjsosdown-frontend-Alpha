@@ -14,7 +14,26 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body{
+  overflow: overlay;
+}
 
+::-webkit-scrollbar {
+  width: 0.5vw;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(00, 00, 00, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232323;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #121212;
+  border-color: black;
+  border-width: 5px;
 }
 
 `
