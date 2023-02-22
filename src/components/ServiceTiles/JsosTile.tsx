@@ -1,5 +1,14 @@
-import {JsosTileContainer, JsosTileName, JsosStatsContainer, JsosStats} from './Tiles.style'
+import {
+    JsosTileContainer,
+    TileName,
+    StatsContainer,
+    ServiceStats,
+    ChartContainer,
+    TopTileWrapper,
+    StatusDot
+} from './Tiles.style'
 import {serviceData} from "../../interfaces/serviceData";
+import {useEffect, useState} from "react";
 
 interface JSOStileProps {
     jsosData?: serviceData
@@ -7,17 +16,36 @@ interface JSOStileProps {
 
 export const JsosTile = (props: JSOStileProps) => {
 
+    const [activityColor, setActivityColor] = useState<string>()
+
+    useEffect(() =>{
+        setActivityColor(
+            props.jsosData?.isActive ? "green" : "red"
+        )
+    }, [props.jsosData])
+
     return (
         <>
             <JsosTileContainer>
-                <JsosTileName>
-                    {props.jsosData?.name}
-                </JsosTileName>
-                <JsosStatsContainer>
-                    <JsosStats>status: aktywny</JsosStats>
-                    <JsosStats>uptime: {props.jsosData?.uptime}%</JsosStats>
-                    <JsosStats>ostatnia awaria: {props.jsosData?.lastActive.toDateString()}</JsosStats>
-                </JsosStatsContainer>
+
+                <TopTileWrapper>
+                    <StatusDot invisible={true}/>
+                    <TileName>
+                        {props.jsosData?.name}
+                    </TileName>
+                    <StatusDot color={activityColor}/>
+                </TopTileWrapper>
+
+                <StatsContainer>
+                    <ServiceStats>status: aktywny</ServiceStats>
+                    <ServiceStats>uptime: {props.jsosData?.uptime}%</ServiceStats>
+                    <ServiceStats>ostatnia awaria: {props.jsosData?.lastActive.toDateString()}</ServiceStats>
+                    <ServiceStats>czas działania: Test</ServiceStats>
+                </StatsContainer>
+
+                <ChartContainer>
+
+                </ChartContainer>
 
             </JsosTileContainer>
         </>

@@ -6,7 +6,7 @@ import {ServicesContainer} from "./components/ServicesContainer/ServicesContaine
 import { serviceData } from "../../interfaces/serviceData"
 
 
-const jsos:serviceData = { isActive: true, name: "JSOS", lastActive: new Date(1677020205), uptime: 98.27}
+const jsos:serviceData = { isActive: false, name: "JSOS", lastActive: new Date(1677020205), uptime: 98.27}
 
 export const Home: React.FC = () => {
 

@@ -14,7 +14,8 @@ export const BanerContainer = styled.div`
 `
 
 export const Title = styled.h1`
-  margin-top: 5vh;
+  margin-top: 2.5vh;
   font-size: 12vh;
   color: white;
+  font-weight: 900;
 `
