@@ -9,6 +9,7 @@ import {
 } from './Tiles.style'
 import {IServiceData} from "../../interfaces/serviceData";
 import {useEffect, useState} from "react";
+import {globalColors} from "../../assets/globalStyleVariables";
 
 interface JSOStileProps {
     jsosData?: IServiceData
@@ -20,7 +21,7 @@ export const JsosTile = (props: JSOStileProps) => {
 
     useEffect(() =>{
         setActivityColor(
-            props.jsosData?.isActive ? "green" : "red"
+            props.jsosData?.isActive ? globalColors.green : globalColors.red
         )
     }, [props.jsosData])
 

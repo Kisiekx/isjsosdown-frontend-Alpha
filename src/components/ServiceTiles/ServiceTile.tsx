@@ -9,6 +9,7 @@ import {
 } from './Tiles.style'
 import {IServiceData} from "../../interfaces/serviceData";
 import {useEffect, useState} from "react";
+import {globalColors} from "../../assets/globalStyleVariables";
 
 interface ServiceTileProps {
     serviceData: IServiceData
@@ -20,7 +21,7 @@ export const ServiceTile = (props: ServiceTileProps) => {
 
     useEffect(() =>{
         setActivityColor(
-            props.serviceData?.isActive ? "green" : "red"
+            props.serviceData?.isActive ? globalColors.green : globalColors.red
         )
     }, [props.serviceData])
 
