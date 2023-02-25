@@ -1,6 +1,6 @@
 import React from "react";
 
-import {TopBar} from "./components/TopBar/TopBar";
+import {TopBar} from "../../components/TopBar/TopBar";
 import {Baner} from "./components/Baner/Baner";
 import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
 import {HomeLogic} from "./HomeLogic";

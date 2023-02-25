@@ -1,20 +1,23 @@
 import styled from "styled-components";
 
 export const TileContainer = styled.div`
+  background: linear-gradient(45deg, #8c3e98, #4a57c9);
+  background-size: cover;
   flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
   padding: 1vh;
-  background-color: white;
   height: 25vh;
   width: auto;
   min-width: 25vh;
   border-radius: 20px;
+  color: white;
 `
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
-  background-color: white;
+  background: white;
   aspect-ratio: 1.75;
+  color: black;
 `
 
 export const TopTileWrapper = styled.div`
@@ -31,8 +34,6 @@ export const TileName = styled.p`
   font-weight: 900;
   text-align: center;
   font-size: 3vh;
-  color: black;
-
 `
 
 export const StatusDot = styled.div<{ invisible?: boolean, color?: string }>`
