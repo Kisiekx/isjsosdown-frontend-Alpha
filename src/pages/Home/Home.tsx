@@ -2,20 +2,21 @@ import React from "react";
 
 import {TopBar} from "./components/TopBar/TopBar";
 import {Baner} from "./components/Baner/Baner";
-import {ServicesContainer} from "./components/ServicesContainer/ServicesContainer";
-import { serviceData } from "../../interfaces/serviceData"
-
-
-const jsos:serviceData = { isActive: false, name: "JSOS", lastActive: new Date(1677020205), uptime: 98.27}
+import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
+import {HomeLogic} from "./HomeLogic";
 
 export const Home: React.FC = () => {
 
+    const {services} = HomeLogic()
+
+    console.log(services)
 
     return (
         <>
             <TopBar/>
-            <Baner jsosData={jsos}/>
-            <ServicesContainer/>
+            <Baner jsosData={services[0]}/>
+            <ServicesStatus services={services}/>
+
         </>
     );
 }

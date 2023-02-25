@@ -1,5 +1,5 @@
 import {BanerContainer, Title, arrowIconStyle, QuoteContainer, Quote} from './Baner.style'
-import {serviceData} from "../../../../interfaces/serviceData"
+import {IServiceData} from "../../../../interfaces/serviceData"
 import {JsosTile} from "../../../../components/ServiceTiles/JsosTile";
 import {Loader1} from "../../../../components/Loaders/Loader1";
 
@@ -7,7 +7,7 @@ import {IoIosArrowDown} from 'react-icons/io'
 
 
 interface BanerProps {
-    jsosData: serviceData
+    jsosData: IServiceData
 }
 
 export const Baner = (props: BanerProps) => {

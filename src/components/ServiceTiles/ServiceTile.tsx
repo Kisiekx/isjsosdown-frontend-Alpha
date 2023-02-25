@@ -1,5 +1,5 @@
 import {
-    JsosTileContainer,
+    TileContainer,
     TileName,
     StatsContainer,
     ServiceStats,
@@ -10,36 +10,36 @@ import {
 import {IServiceData} from "../../interfaces/serviceData";
 import {useEffect, useState} from "react";
 
-interface JSOStileProps {
-    jsosData?: IServiceData
+interface ServiceTileProps {
+    serviceData: IServiceData
 }
 
-export const JsosTile = (props: JSOStileProps) => {
+export const ServiceTile = (props: ServiceTileProps) => {
 
     const [activityColor, setActivityColor] = useState<string>()
 
     useEffect(() =>{
         setActivityColor(
-            props.jsosData?.isActive ? "green" : "red"
+            props.serviceData?.isActive ? "green" : "red"
         )
-    }, [props.jsosData])
+    }, [props.serviceData])
 
     return (
         <>
-            <JsosTileContainer>
+            <TileContainer>
 
                 <TopTileWrapper>
                     <StatusDot invisible={true}/>
                     <TileName>
-                        {props.jsosData?.name}
+                        {props.serviceData.name}
                     </TileName>
                     <StatusDot color={activityColor}/>
                 </TopTileWrapper>
 
                 <StatsContainer>
                     <ServiceStats>status: aktywny</ServiceStats>
-                    <ServiceStats>uptime: {props.jsosData?.uptime}%</ServiceStats>
-                    <ServiceStats>ostatnia awaria: {props.jsosData?.lastActive.toDateString()}</ServiceStats>
+                    <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
+                    <ServiceStats>ostatnia awaria: {props.serviceData.lastActive.toDateString()}</ServiceStats>
                     <ServiceStats>czas działania: Test</ServiceStats>
                 </StatsContainer>
 
@@ -47,7 +47,7 @@ export const JsosTile = (props: JSOStileProps) => {
 
                 </ChartContainer>
 
-            </JsosTileContainer>
+            </TileContainer>
         </>
     )
 
