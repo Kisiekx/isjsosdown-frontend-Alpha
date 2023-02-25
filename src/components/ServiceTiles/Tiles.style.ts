@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const TileContainer = styled.div`
   padding: 1vh;
-  margin-top: 5vh;
   background-color: white;
   height: 25vh;
   min-width: 25vh;
@@ -28,7 +27,6 @@ export const TileName = styled.p`
   
 `
 
-
 export const StatusDot = styled.div<{ invisible?: boolean, color?: string}>`
   background-color: ${props => props.color};
   height: 2vh;
@@ -52,3 +50,4 @@ export const ChartContainer = styled.div`
   width: 100%;
   height: 8vh;
 `
+
