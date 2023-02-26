@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const TileContainer = styled.div`
-  background: linear-gradient(45deg, #8c3e98, #4a57c9);
+  background: linear-gradient(45deg, #001aff, #c700ff);
   background-size: cover;
+  background-attachment: fixed;
   flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
@@ -53,6 +54,7 @@ export const ServiceStats = styled.p`
   font-family: 'Satoshi-Variable';
   font-weight: lighter;
   padding: 0;
+  font-size: 0.8vw;
 `
 
 export const ChartContainer = styled.div`

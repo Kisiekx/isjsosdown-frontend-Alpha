@@ -57,7 +57,7 @@ const exampleServices: IServiceData[] = [
         uptime: 92.58
     },
     {
-        isActive: false,
+        isActive: true,
         name: "frontend",
         lastActive: new Date(),
         uptime: 92.58
@@ -70,10 +70,16 @@ export const HomeLogic = () => {
 
     const [services, setServices] = useState<IServiceData[]>([])
 
-    useEffect(() =>{
-        setServices(exampleServices)
-        console.log("STate changed")
-    }, [])
+    const bool = true;
+
+    const Test = () => {
+        setInterval(() => {
+            setServices(exampleServices)
+            console.log(services)
+        }, 2000)
+    }
+
+    Test()
 
     return{services}
 

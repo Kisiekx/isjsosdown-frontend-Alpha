@@ -9,14 +9,12 @@ export const Home: React.FC = () => {
 
     const {services} = HomeLogic()
 
-    console.log(services)
 
     return (
         <>
             <TopBar/>
             <Baner jsosData={services[0]}/>
             <ServicesStatus services={services}/>
-
         </>
     );
 }
