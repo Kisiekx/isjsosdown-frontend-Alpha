@@ -55,4 +55,4 @@ jobs:
           app-name: 'isjsosdown'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_53A624099FBB4B7C953286537B38A6D0 }}
-          package: .
+          package: release.zip
