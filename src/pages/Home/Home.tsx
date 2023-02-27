@@ -1,23 +1,20 @@
 import React from "react";
 
-import {TopBar} from "./components/TopBar/TopBar";
+import {TopBar} from "../../components/TopBar/TopBar";
 import {Baner} from "./components/Baner/Baner";
-
-
-
-export interface serviceData {
-    name: string,
-}
-
-const jsos:serviceData = { name: "JSOS"}
+import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
+import {HomeLogic} from "./HomeLogic";
 
 export const Home: React.FC = () => {
+
+    const {services} = HomeLogic()
 
 
     return (
         <>
             <TopBar/>
-            <Baner jsosData={jsos}/>
+            <Baner jsosData={services[0]}/>
+            <ServicesStatus services={services}/>
         </>
     );
 }

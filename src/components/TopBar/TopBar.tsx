@@ -1,5 +1,5 @@
 import { TopBarContainer, Logo } from "./TopBar.style";
-import logo from '../../../../assets/logo.svg'
+import logo from '../../assets/logo.svg'
 
 export const TopBar = () => {
     return (
