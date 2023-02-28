@@ -1,45 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Home } from "./pages/Home/Home";
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from "./assets/global.style";
 import './assets/fonts.css'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom'
-import { ErrorPage } from './pages/ErrorPage/ErrorPage';
-import { ServiceDetailsPage } from './pages/ServiceDetailsPage/ServiceDetailsPage';
+import { RouterComponent } from './components/Routers/RouterComponent';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const ServiceDetails = ()=>{
-  return <div>Service Details</div>
-}
 
-const RouterComponent = (props:any)=>{
-  return(
-  <>
-        <Routes>
-                <Route path="/" element={<Home/>} ></Route>
-                <Route path="/service/:serviceID" element={<ServiceDetailsPage/>}/>
-                <Route path="/*" element={<ErrorPage/>}/>
-        </Routes>
-     
-  </>);
-
-}
 
 root.render(
   <React.StrictMode>
-    <Router>
       <RouterComponent/>
       <GlobalStyle/>
-    </Router>
-    
   </React.StrictMode>
 );
 
