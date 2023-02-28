@@ -4,14 +4,42 @@ import { Home } from "./pages/Home/Home";
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from "./assets/global.style";
 import './assets/fonts.css'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from 'react-router-dom'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const ServiceDetails = ()=>{
+  return <div>Service Details</div>
+}
+const ErrorPage = ()=>{
+  return <div>ErrorPage</div>
+}
+const RouterComponent = (props:any)=>{
+  return(
+  <>
+        <Routes>
+                <Route path="/" element={<Home/>} ></Route>
+                <Route path="/service/:serviceID" element={<ServiceDetails/>}/>
+                <Route path="/*" element={<ErrorPage/>}/>
+        </Routes>
+     
+  </>);
+
+}
+
 root.render(
   <React.StrictMode>
-    <GlobalStyle/>
-    <Home/>
+    <Router>
+      <RouterComponent/>
+      <GlobalStyle/>
+    </Router>
+    
   </React.StrictMode>
 );
 

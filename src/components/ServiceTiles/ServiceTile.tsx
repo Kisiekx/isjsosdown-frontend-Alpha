@@ -11,7 +11,7 @@ import {IServiceData} from "../../interfaces/serviceData";
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
 
-interface ServiceTileProps {
+export interface ServiceTileProps {
     serviceData: IServiceData
 }
 

@@ -5,6 +5,15 @@ import {Baner} from "./components/Baner/Baner";
 import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
 import {HomeLogic} from "./HomeLogic";
 
+
+const ServiceDetails = ()=>{
+    return <div>Service Details</div>
+}
+const ErrorPage = ()=>{
+    return <div>ErrorPage</div>
+}
+
+
 export const Home: React.FC = () => {
 
     const {services} = HomeLogic()
@@ -15,6 +24,7 @@ export const Home: React.FC = () => {
             <TopBar/>
             <Baner jsosData={services[0]}/>
             <ServicesStatus services={services}/>
+
         </>
     );
 }
