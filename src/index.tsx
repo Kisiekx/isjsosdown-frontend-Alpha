@@ -9,6 +9,8 @@ import {
   Route,
   Routes,
 } from 'react-router-dom'
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
+import { ServiceDetailsPage } from './pages/ServiceDetailsPage/ServiceDetailsPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,15 +19,13 @@ const root = ReactDOM.createRoot(
 const ServiceDetails = ()=>{
   return <div>Service Details</div>
 }
-const ErrorPage = ()=>{
-  return <div>ErrorPage</div>
-}
+
 const RouterComponent = (props:any)=>{
   return(
   <>
         <Routes>
                 <Route path="/" element={<Home/>} ></Route>
-                <Route path="/service/:serviceID" element={<ServiceDetails/>}/>
+                <Route path="/service/:serviceID" element={<ServiceDetailsPage/>}/>
                 <Route path="/*" element={<ErrorPage/>}/>
         </Routes>
      

@@ -1,5 +1,5 @@
 import {BanerContainer, Title, arrowIconStyle, QuoteContainer, Quote} from './Baner.style'
-import {IServiceData} from "../../../../interfaces/serviceData"
+import {IServiceData} from "../../../../interfaces/ServiceData"
 import {JsosTile} from "../../../../components/ServiceTiles/JsosTile";
 import {Loader1} from "../../../../components/Loaders/Loader1";
 

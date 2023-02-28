@@ -1,5 +1,5 @@
 import {Container, Gradient} from "./ServicesStatus.style";
-import {IServiceData} from "../../../../interfaces/serviceData";
+import {IServiceData} from "../../../../interfaces/ServiceData";
 import {ServiceTile} from "../../../../components/ServiceTiles/ServiceTile";
 import { ServiceTileWithRoute } from "../../../../components/RouteWrappers/ServiceTileWithRoute";
 

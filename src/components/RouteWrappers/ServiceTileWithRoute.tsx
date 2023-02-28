@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {IServiceData} from "../../interfaces/serviceData";
+import {IServiceData} from "../../interfaces/ServiceData";
 import { ServiceTile } from "../ServiceTiles/ServiceTile";
 
 import {ServiceTileProps} from "../ServiceTiles/ServiceTile";
