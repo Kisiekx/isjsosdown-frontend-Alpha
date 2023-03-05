@@ -19,9 +19,9 @@ export const ServiceDetailsContainer = styled.div`
 `
 export const ServiceDetailsBackground = styled.div`
     background-color: black;
-    width:100vw;
-    height:100vh;
-    display:flex;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
 
 
 `
