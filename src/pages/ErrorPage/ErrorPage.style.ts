@@ -8,7 +8,7 @@ export const ErrorContainer = styled.div`
     width:100%;
     background-color;
     background: url(${gradient});
-    color:white;
+    color: white;
     margin: auto;
     display: flex;
     justify-content: center;
