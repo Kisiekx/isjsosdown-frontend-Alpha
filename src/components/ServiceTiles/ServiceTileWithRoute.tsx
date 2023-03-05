@@ -1,14 +1,14 @@
-import { NavLink } from "react-router-dom";
 import { ServiceTile } from "./ServiceTile";
 
 import {ServiceTileProps} from "./ServiceTile";
+import {LinkWrapper} from "./Tiles.style"
 
 export const ServiceTileWithRoute = (props:ServiceTileProps) => {
 
     return (
-        <NavLink to={`/service/${props.serviceData.name}`}>
+        <LinkWrapper to={`/service/${props.serviceData.name}`}>
             <ServiceTile serviceData={props.serviceData}/>
-        </NavLink>
+        </LinkWrapper>
     )
 };
 

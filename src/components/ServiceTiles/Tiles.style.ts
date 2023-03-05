@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import gradient from "../../assets/wms-dev-original-fluid-gradient.png"
+import {NavLink} from "react-router-dom";
 
 
 export const TileContainer = styled.div`
@@ -66,3 +67,7 @@ export const ChartContainer = styled.div`
   height: 100%;
 `
 
+export const LinkWrapper = styled(NavLink)`
+  flex-grow: 1;
+  text-decoration: none;
+`
