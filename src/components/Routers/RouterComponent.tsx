@@ -14,7 +14,7 @@ export const RouterComponent = ()=>{
     <>
       <Router>
             <Routes>
-                    <Route path="/" element={<Home/>} ></Route>
+                    <Route path="/" element={<Home/>}/>
                     <Route path="/service/:serviceID" element={<ServiceDetailsPage/>}/>
                     <Route path="/*" element={<ErrorPage/>}/>
             </Routes>
