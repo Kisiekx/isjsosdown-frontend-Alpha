@@ -5,7 +5,7 @@ import gradient from "../../assets/isjsosdown-gradient1.webp"
 export const ServiceDetailsContainer = styled.div`
     position:relative;
     height: 40vh;
-    width:100%;
+    width: 100%;
     background-color;
     background: url(${gradient});
     color:white;
