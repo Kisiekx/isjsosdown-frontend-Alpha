@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from "./assets/global.style";
 import './assets/fonts.css'
-import { RouterComponent } from './components/Routers/RouterComponent';
+import { RouterComponent } from './pages/RouterComponent';
 
 
 const root = ReactDOM.createRoot(

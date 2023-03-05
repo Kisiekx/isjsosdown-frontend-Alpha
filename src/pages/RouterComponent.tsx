@@ -4,9 +4,9 @@ import {
     Routes,
   } from 'react-router-dom'
 
-import { ErrorPage } from "../../pages/ErrorPage/ErrorPage"
-import { ServiceDetailsPage } from '../../pages/ServiceDetailsPage/ServiceDetailsPage';
-import { Home } from "../../pages/Home/Home";
+import { ErrorPage } from "./ErrorPage/ErrorPage"
+import { ServiceDetailsPage } from './ServiceDetailsPage/ServiceDetailsPage';
+import { Home } from "./Home/Home";
 
 
 export const RouterComponent = ()=>{

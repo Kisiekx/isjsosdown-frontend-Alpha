@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import {IServiceData} from "../../interfaces/ServiceData";
-import { ServiceTile } from "../ServiceTiles/ServiceTile";
+import { ServiceTile } from "./ServiceTile";
 
-import {ServiceTileProps} from "../ServiceTiles/ServiceTile";
+import {ServiceTileProps} from "./ServiceTile";
 
 export const ServiceTileWithRoute = (props:ServiceTileProps) => {
 
