@@ -7,8 +7,5 @@ export const ErrorPage = () => {
         <ErrorPageBackground>
             <ErrorContainer>Error details</ErrorContainer>
         </ErrorPageBackground>
-       
     )
-
-
 }
