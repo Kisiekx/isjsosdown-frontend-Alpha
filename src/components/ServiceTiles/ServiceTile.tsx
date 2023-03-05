@@ -7,11 +7,11 @@ import {
     TopTileWrapper,
     StatusDot
 } from './Tiles.style'
-import {IServiceData} from "../../interfaces/serviceData";
+import {IServiceData} from "../../interfaces/ServiceData";
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
 
-interface ServiceTileProps {
+export interface ServiceTileProps {
     serviceData: IServiceData
 }
 

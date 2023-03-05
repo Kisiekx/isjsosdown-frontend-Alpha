@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Home } from "./pages/Home/Home";
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from "./assets/global.style";
 import './assets/fonts.css'
+import { RouterComponent } from './pages/RouterComponent';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
+
 root.render(
   <React.StrictMode>
-    <GlobalStyle/>
-    <Home/>
+      <RouterComponent/>
+      <GlobalStyle/>
   </React.StrictMode>
 );
 

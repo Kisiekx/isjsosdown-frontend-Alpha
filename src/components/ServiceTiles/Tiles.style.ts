@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import gradient from "../../assets/wms-dev-original-fluid-gradient.png"
+
 
 export const TileContainer = styled.div`
-  background: linear-gradient(45deg, #001aff, #c700ff);
+  background: url(${gradient});
   background-size: cover;
   background-attachment: fixed;
   flex-grow: 1;

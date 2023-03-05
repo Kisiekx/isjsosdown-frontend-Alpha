@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import gradeint from "../../../../assets/isjsosdown-gradient1.webp"
+import gradient from "../../../../assets/wms-dev-original-cubism-gradient.png"
 
 export const BanerContainer = styled.div`
   width: 100%;
   height: 80vh;
-  background-image: url(${gradeint});
+  background-image: url(${gradient});
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
