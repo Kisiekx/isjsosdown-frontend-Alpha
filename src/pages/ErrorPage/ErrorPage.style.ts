@@ -3,7 +3,7 @@ import gradient from "../../assets/isjsosdown-gradient1.webp"
 
 
 export const ErrorContainer = styled.div`
-    position:relative;
+    position: relative;
     height: 40vh;
     width:100%;
     background-color;
