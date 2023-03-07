@@ -1,6 +1,6 @@
 import { IServiceID } from "./ServiceDetailsPage";
 import {useEffect, useState} from "react";
-import { IServiceDetailsData } from "../../interfaces/ServiceDetailsData";
+import { IServiceDetailsData } from "../../types/main.types";
 
 
 export const ServiceDetailsPageLogic = (prop:IServiceID) => {

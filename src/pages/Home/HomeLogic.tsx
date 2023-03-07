@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {IServiceData} from "../../interfaces/ServiceData";
+import {IServiceData} from "../../types/main.types";
 
 const exampleServices: IServiceData[] = [
     {

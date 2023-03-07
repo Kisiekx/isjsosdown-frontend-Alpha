@@ -6,13 +6,6 @@ import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
 import {HomeLogic} from "./HomeLogic";
 
 
-const ServiceDetails = ()=>{
-    return <div>Service Details</div>
-}
-const ErrorPage = ()=>{
-    return <div>ErrorPage</div>
-}
-
 
 export const Home: React.FC = () => {
 
