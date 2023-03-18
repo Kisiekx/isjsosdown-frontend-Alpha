@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
-import {IServiceData} from "../../types/main.types";
-
+import {IServiceData, IServiceDataRaw, IServicesRawStatus} from "../../types/main.types";
+import { getInitialStats } from "../../lib/fetch";
+import { format } from "path";
+/*
 const exampleServices: IServiceData[] = [
     {
         isActive: true,
@@ -64,23 +66,50 @@ const exampleServices: IServiceData[] = [
     },
 ]
 
-
+*/
 
 export const HomeLogic = () => {
 
     const [services, setServices] = useState<IServiceData[]>([])
-
-    const bool = true;
-
-    const Test = () => {
-        setInterval(() => {
-            setServices(exampleServices)
-            console.log(services)
-        }, 2000)
+    
+    const formatServices = (services: IServiceDataRaw[], isActive: boolean) => {
+        
+        return services.map((service:IServiceDataRaw)=>{
+            if(service.downSince){
+                return {...service, isActive: isActive, downSinceDate: (new Date(service.downSince).toString())}
+            }else{
+                return {...service, isActive: isActive}
+            }
+        })
+            
     }
 
-    Test()
+    useEffect(()=>{
 
-    return{services}
+        getInitialStats().then((recievedServices:IServicesRawStatus) => {
+
+            const downServices = formatServices(recievedServices.downServices, false)
+            const runningServices = formatServices(recievedServices.runningServices, true)
+
+            const allServices = downServices.concat(runningServices)
+            const jsosIndex = allServices.findIndex((service)=>service.title==="JSOS")
+
+            if(jsosIndex>-1){
+                const tmpService = allServices[0]
+                allServices[0] = allServices[jsosIndex]
+                allServices[jsosIndex] = tmpService
+            }
+
+            setServices(allServices)
+    
+    
+        })
+
+
+    },[])
+    
+    console.log(services)
+
+    return services
 
 }

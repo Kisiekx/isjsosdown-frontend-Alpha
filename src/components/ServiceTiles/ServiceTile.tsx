@@ -32,15 +32,18 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 <TopTileWrapper>
                     <StatusDot invisible={true}/>
                     <TileName>
-                        {props.serviceData.name}
+                        {props.serviceData.title}
                     </TileName>
                     <StatusDot color={activityColor}/>
                 </TopTileWrapper>
 
                 <StatsContainer>
-                    <ServiceStats>status: aktywny</ServiceStats>
+                    <ServiceStats>status: {props.serviceData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
-                    <ServiceStats>ostatnia awaria: {props.serviceData.lastActive.toDateString()}</ServiceStats>
+                    {props.serviceData.downSince?
+                        <ServiceStats>czas rozpoczęcia awarii: {props.serviceData.downSinceDate}</ServiceStats>
+                        :""
+                    }
                     <ServiceStats>czas działania: Test</ServiceStats>
                 </StatsContainer>
 
