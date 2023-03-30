@@ -1,7 +1,53 @@
 import {useEffect, useState} from "react";
-import {IServiceData, IServiceDataRaw, IServicesRawStatus} from "../../types/main.types";
+import { IServiceData, IServiceDataRaw, IServicesRawStatus, IWorkingServiceData} from "../../types/main.types";
 import { getInitialStats } from "../../lib/fetch";
-import { format } from "path";
+import { isFailingServiceType} from "../../lib/typeGuards";
+
+
+export const HomeLogic = () => {
+
+    const [services, setServices] = useState<IServiceData[]>([])
+    
+    const formatServices = (services: IServiceDataRaw[], isActive: boolean):IServiceData[] => {
+        
+        return services.map((service:IServiceDataRaw)=>{
+            if(isFailingServiceType(service)){
+                return {...service, isActive: isActive, downSinceDate: (new Date(service.downSince).toString())}
+            }else{
+                return {...(service as IWorkingServiceData), isActive: isActive} 
+            }
+        })
+            
+    }
+
+    useEffect(()=>{
+
+        getInitialStats().then((recievedServices:IServicesRawStatus) => {
+
+            const downServices = formatServices(recievedServices.downServices, false)
+            const runningServices = formatServices(recievedServices.runningServices, true)
+
+            const allServices = downServices.concat(runningServices)
+            const jsosIndex = allServices.findIndex((service)=>service.title==="JSOS")
+
+            if(jsosIndex>-1){
+                [allServices[0],allServices[jsosIndex]]= [allServices[jsosIndex], allServices[0]]
+            }
+
+            setServices(allServices)
+    
+    
+        })
+
+
+    },[])
+    
+    console.log(services)
+
+    return services
+
+}
+
 /*
 const exampleServices: IServiceData[] = [
     {
@@ -67,49 +113,3 @@ const exampleServices: IServiceData[] = [
 ]
 
 */
-
-export const HomeLogic = () => {
-
-    const [services, setServices] = useState<IServiceData[]>([])
-    
-    const formatServices = (services: IServiceDataRaw[], isActive: boolean) => {
-        
-        return services.map((service:IServiceDataRaw)=>{
-            if(service.downSince){
-                return {...service, isActive: isActive, downSinceDate: (new Date(service.downSince).toString())}
-            }else{
-                return {...service, isActive: isActive}
-            }
-        })
-            
-    }
-
-    useEffect(()=>{
-
-        getInitialStats().then((recievedServices:IServicesRawStatus) => {
-
-            const downServices = formatServices(recievedServices.downServices, false)
-            const runningServices = formatServices(recievedServices.runningServices, true)
-
-            const allServices = downServices.concat(runningServices)
-            const jsosIndex = allServices.findIndex((service)=>service.title==="JSOS")
-
-            if(jsosIndex>-1){
-                const tmpService = allServices[0]
-                allServices[0] = allServices[jsosIndex]
-                allServices[jsosIndex] = tmpService
-            }
-
-            setServices(allServices)
-    
-    
-        })
-
-
-    },[])
-    
-    console.log(services)
-
-    return services
-
-}

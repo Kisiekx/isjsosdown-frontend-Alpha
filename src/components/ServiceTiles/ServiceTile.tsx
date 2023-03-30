@@ -10,6 +10,7 @@ import {
 import {IServiceData} from "../../types/main.types"
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
+import { isFailingServiceType } from '../../lib/typeGuards';
 
 export interface ServiceTileProps {
     serviceData: IServiceData
@@ -40,7 +41,7 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 <StatsContainer>
                     <ServiceStats>status: {props.serviceData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
-                    {props.serviceData.downSince?
+                    {isFailingServiceType(props.serviceData)?
                         <ServiceStats>czas rozpoczęcia awarii: {props.serviceData.downSinceDate}</ServiceStats>
                         :""
                     }
