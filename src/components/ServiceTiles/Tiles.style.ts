@@ -20,8 +20,9 @@ export const TileContainer = styled.div`
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
   background: white;
-  aspect-ratio: 1.75;
   color: black;
+  position: relative;
+  min-width: max(20em, 20vw);
 `
 
 export const TopTileWrapper = styled.div`

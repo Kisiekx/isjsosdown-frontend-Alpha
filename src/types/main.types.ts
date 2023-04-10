@@ -15,8 +15,10 @@ export interface IServicesRawStatus{
 export interface IServiceDataRaw{
     title: string,
     uptime: number,
-    downtime: DownTime[]
-    downSince?:number
+    downtime: DownTime[],
+    downSince?:number,
+    [id:string]:string|number|DownTime[]|number|boolean|undefined
+    
 }
 export type IWorkingServiceData = {
     [Property in keyof IServiceDataRaw as Exclude<Property,"downSince">]: IServiceDataRaw[Property]

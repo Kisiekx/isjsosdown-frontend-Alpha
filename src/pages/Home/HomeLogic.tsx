@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
 import { IServiceData, IServiceDataRaw, IServicesRawStatus, IWorkingServiceData} from "../../types/main.types";
-import { getInitialStats } from "../../lib/fetch";
+import { connectToWebsocket, getInitialStats} from "../../lib/fetch";
 import { isFailingServiceType} from "../../lib/typeGuards";
+import { IMessage } from "@stomp/stompjs";
+
 
 
 export const HomeLogic = () => {
@@ -18,6 +20,28 @@ export const HomeLogic = () => {
             }
         })
             
+    }
+
+    const updateFromWebSockets=(message:IMessage)=>{
+        
+        console.log(JSON.parse(message.body))
+        setServices((servicesArg:IServiceData[])=>{
+            const messageValue = JSON.parse(message.body)
+            const newServices = [...servicesArg]
+            const updatedService = newServices.find((service:IServiceData)=>service["title"]===messageValue["service"])
+
+            if(updatedService){
+                for(const key of Object.keys(messageValue)){
+                    if(key!=="service"){
+                        updatedService[key]=messageValue[key]
+                    }
+                
+                }
+            }
+            return newServices
+            })
+        
+
     }
 
     useEffect(()=>{
@@ -40,6 +64,10 @@ export const HomeLogic = () => {
         })
 
 
+    },[])
+
+    useEffect(()=>{
+        connectToWebsocket(updateFromWebSockets);
     },[])
     
     console.log(services)
