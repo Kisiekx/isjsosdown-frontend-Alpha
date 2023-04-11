@@ -5,14 +5,14 @@ import { getInitialStats } from "../../lib/fetch";
 import { IServiceData } from "../../types/main.types";
 import {Baner} from "./components/Baner/Baner";
 import {ServicesStatus} from "./components/ServicesContainer/ServicesStatus";
-import {HomeLogic} from "./HomeLogic";
+import {useHomeLogic} from "./useHomeLogic";
 
 
 
 export const Home: React.FC = () => {
 
 
-    const services =  HomeLogic()
+    const services =  useHomeLogic()
 
 
     return (

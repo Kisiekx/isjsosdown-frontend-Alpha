@@ -24,7 +24,7 @@ export const JsosTile = (props: JSOStileProps) => {
         setActivityColor(
             props.jsosData?.isActive ? globalColors.green : globalColors.red
         )
-    }, [props.jsosData])
+    }, [props.jsosData.isActive])
 
     return (
         <>

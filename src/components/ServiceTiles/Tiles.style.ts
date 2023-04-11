@@ -58,7 +58,7 @@ export const ServiceStats = styled.p`
   font-family: 'Satoshi-Variable';
   font-weight: lighter;
   padding: 0;
-  font-size: 0.8vw;
+  font-size: 0.5rem;
 `
 
 export const ChartContainer = styled.div`

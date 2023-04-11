@@ -5,8 +5,20 @@ import { isFailingServiceType} from "../../lib/typeGuards";
 import { IMessage } from "@stomp/stompjs";
 
 
+const switchElementToTop = (arr:any[], comparator:(arg:any)=>boolean)=>{
+    const indexOfElementToSwitch = arr.findIndex(comparator)
 
-export const HomeLogic = () => {
+            if(indexOfElementToSwitch>-1){
+                [arr[0],arr[indexOfElementToSwitch]]= [arr[indexOfElementToSwitch], arr[0]]
+            }
+}
+
+const getServiceNameToTop=(name:string)=>(service:IServiceData)=>{
+    return service.title===name
+}
+
+
+export const useHomeLogic = () => {
 
     const [services, setServices] = useState<IServiceData[]>([])
     
@@ -25,7 +37,9 @@ export const HomeLogic = () => {
     const updateFromWebSockets=(message:IMessage)=>{
         
         console.log(JSON.parse(message.body))
+
         setServices((servicesArg:IServiceData[])=>{
+            
             const messageValue = JSON.parse(message.body)
             const newServices = [...servicesArg]
             const updatedService = newServices.find((service:IServiceData)=>service["title"]===messageValue["service"])
@@ -34,10 +48,24 @@ export const HomeLogic = () => {
                 for(const key of Object.keys(messageValue)){
                     if(key!=="service"){
                         updatedService[key]=messageValue[key]
+
+                        if(key==="downSince"){
+                            updatedService.downSince = messageValue.downSince
+                            updatedService.downSinceDate=new Date(messageValue[key]).toString()
+                            updatedService.isActive=false
+                        }else if(key==="downTill"){
+
+                            delete updatedService.downSince
+                            delete updatedService.downSinceDate
+                            updatedService.isActive=true
+                        }
                     }
+                    
                 
                 }
             }
+            switchElementToTop(newServices, getServiceNameToTop("jsos"))
+
             return newServices
             })
         
@@ -52,11 +80,7 @@ export const HomeLogic = () => {
             const runningServices = formatServices(recievedServices.runningServices, true)
 
             const allServices = downServices.concat(runningServices)
-            const jsosIndex = allServices.findIndex((service)=>service.title==="JSOS")
-
-            if(jsosIndex>-1){
-                [allServices[0],allServices[jsosIndex]]= [allServices[jsosIndex], allServices[0]]
-            }
+            switchElementToTop(allServices, getServiceNameToTop("jsos"))
 
             setServices(allServices)
     

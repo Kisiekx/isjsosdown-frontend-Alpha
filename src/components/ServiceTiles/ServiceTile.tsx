@@ -24,7 +24,7 @@ export const ServiceTile = (props: ServiceTileProps) => {
         setActivityColor(
             props.serviceData?.isActive ? globalColors.green : globalColors.red
         )
-    }, [props.serviceData])
+    },[props.serviceData.isActive])
 
     return (
         <>
