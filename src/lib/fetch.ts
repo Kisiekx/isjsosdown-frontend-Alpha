@@ -2,9 +2,9 @@ import { IMessage, Stomp, StompConfig } from '@stomp/stompjs'
 import axios from 'axios'
 import SockJS from "sockjs-client"
 
-//const baseURL = 'https://pwr-api.internal.wmsdev.pl'
-const baseURL = "http://localhost:8080"
-const url = baseURL+'/api/isjsosdown/'
+const baseURL = 'https://pwr-api.internal.wmsdev.pl'
+//const baseURL = "http://localhost:8080"
+const url = baseURL+'/api/isjsosdown'
 
 const websocketURL = baseURL+"/faker"
 export const websocketChannel = "/topic/test"
