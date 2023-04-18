@@ -10,12 +10,13 @@ export const TileContainer = styled.div`
   flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
-  padding: 1vh;
-  height: 25vh;
+  height: 32vh;
   width: auto;
   min-width: 25vh;
   border-radius: 20px;
   color: white;
+  padding: 1vh 1vh 1vh 2vh;
+  overflow: auto;
 `
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
@@ -58,14 +59,12 @@ export const ServiceStats = styled.p`
   font-family: 'Satoshi-Variable';
   font-weight: lighter;
   padding: 0;
-  font-size: 0.5rem;
+  font-size: 1rem;
 `
 
 export const ChartContainer = styled.div`
-  background-color: red;
-  padding: 1vh;
-  width: 100%;
-  height: 100%;
+  position:relative;
+  resize: both;
 `
 
 export const LinkWrapper = styled(NavLink)`

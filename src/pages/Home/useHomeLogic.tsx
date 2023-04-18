@@ -3,6 +3,7 @@ import { IServiceData, IServiceDataRaw, IServicesRawStatus, IWorkingServiceData}
 import { connectToWebsocket, getInitialStats} from "../../lib/fetch";
 import { isFailingServiceType} from "../../lib/typeGuards";
 import { IMessage } from "@stomp/stompjs";
+import { getDetailedDate } from "../../lib/dateFormatting";
 
 
 const switchElementToTop = (arr:any[], comparator:(arg:any)=>boolean)=>{
@@ -26,7 +27,9 @@ export const useHomeLogic = () => {
         
         return services.map((service:IServiceDataRaw)=>{
             if(isFailingServiceType(service)){
-                return {...service, isActive: isActive, downSinceDate: (new Date(service.downSince).toString())}
+                return {...service, isActive: isActive, 
+                    downSinceDate: getDetailedDate(service.downSince),
+                     downtimes:service.downtimes.concat({downSince:service.downSince})}
             }else{
                 return {...(service as IWorkingServiceData), isActive: isActive} 
             }
@@ -51,13 +54,22 @@ export const useHomeLogic = () => {
 
                         if(key==="downSince"){
                             updatedService.downSince = messageValue.downSince
-                            updatedService.downSinceDate=new Date(messageValue[key]).toString()
+                            updatedService.downSinceDate=getDetailedDate(messageValue[key])
                             updatedService.isActive=false
+                            updatedService.downtimes.push({downSince: messageValue.downSince as number})
+                            if("downSince" in updatedService.downtimes[updatedService.downtimes.length-1]){
+                                updatedService.downtimes.push({downSince: messageValue.downSince as number})
+                            }
                         }else if(key==="downTill"){
 
                             delete updatedService.downSince
                             delete updatedService.downSinceDate
                             updatedService.isActive=true
+                            if(!("downTill" in updatedService.downtimes[updatedService.downtimes.length-1])){
+                                updatedService.downtimes.push({downTill: messageValue.downTill as number})
+                            }
+                            
+
                         }
                     }
                     

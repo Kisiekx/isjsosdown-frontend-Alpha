@@ -4,10 +4,7 @@ export interface IServiceDetailsData{
     ///To be implemented
     serviceID:string
 }
-export interface DownTime{
-    downSince: number,
-    downTill: number
-}
+
 export interface IServicesRawStatus{
     downServices: IServiceDataRaw[]
     runningServices: IServiceDataRaw[]
@@ -15,9 +12,9 @@ export interface IServicesRawStatus{
 export interface IServiceDataRaw{
     title: string,
     uptime: number,
-    downtime: DownTime[],
+    downtimes: DownTime[],
     downSince?:number,
-    [id:string]:string|number|DownTime[]|number|boolean|undefined
+    [id:string]:string|number|DownTime[]|boolean|undefined
     
 }
 export type IWorkingServiceData = {
@@ -34,3 +31,9 @@ export type IServiceData =   IWorkingServiceData | IFailingServiceData
 export interface IServicesData{
     services : IServiceData[]
 }
+
+export type DownTime = {
+    downSince: number,
+    downTill: number
+}|{downSince:number}
+ |{downTill:number}

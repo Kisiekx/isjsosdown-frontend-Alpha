@@ -11,6 +11,7 @@ import {IServiceData} from "../../types/main.types"
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
 import { isFailingServiceType } from '../../lib/typeGuards';
+import { AvailabilityChart } from '../AvailabilityCharts/AvailabilityChart';
 
 export interface ServiceTileProps {
     serviceData: IServiceData
@@ -22,9 +23,14 @@ export const ServiceTile = (props: ServiceTileProps) => {
 
     useEffect(() =>{
         setActivityColor(
-            props.serviceData?.isActive ? globalColors.green : globalColors.red
+            props.serviceData?.isActive ? globalColors.brightGreen : globalColors.brightRed
         )
+        
     },[props.serviceData.isActive])
+
+    useEffect(()=>{
+        console.log(props.serviceData.downtimes)
+    })
 
     return (
         <>
@@ -49,7 +55,7 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 </StatsContainer>
 
                 <ChartContainer>
-
+                    <AvailabilityChart downtimes={props.serviceData.downtimes}/>
                 </ChartContainer>
 
             </TileContainer>
