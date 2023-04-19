@@ -1,6 +1,8 @@
-import { useEffect,useLayoutEffect,useState } from 'react';
+import { useEffect,useState } from 'react';
 import 'chartjs-adapter-moment';
 import { _DeepPartialObject } from 'chart.js/types/utils';
+import { DownTime } from '../../types/main.types';
+import { globalColors } from '../../assets/globalStyleVariables';
 
 
 import {Chart as ChartJS, CategoryScale, LinearScale, PointElement,
@@ -17,23 +19,27 @@ import {Chart as ChartJS, CategoryScale, LinearScale, PointElement,
     AnimationSpec,
     ChartType,
     LogarithmicScale} from 'chart.js'
-import { DownTime } from '../../types/main.types';
-import { globalColors } from '../../assets/globalStyleVariables';
-import { isDownTimeType } from '../../lib/typeGuards';
 
-const ANIMATION_DURATION = 800
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    TimeScale,
-    LogarithmicScale
-  );
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  TimeScale,
+  LogarithmicScale
+);
+
+const ANIMATION_DURATION = 700
+
+type FormatedData = {
+  arg: number,
+  val: number
+}
+
 export const useAvailabilityChartLogic = (props:{downtimes:DownTime[]}) =>{
 
     const [labels,setLabels] = useState<number[]>([])
@@ -65,31 +71,6 @@ export const useAvailabilityChartLogic = (props:{downtimes:DownTime[]}) =>{
 }
 
 
-
-
-
-const data = [
-
-    {
-        downSince: Date.now()-600000,
-        downTill: Date.now()-500000
-    },{
-        downSince: Date.now()-400000,
-        downTill: Date.now()-300000
-    },{
-        downSince: Date.now()-230000,
-        downTill: Date.now()-200000
-    },{
-        downSince: Date.now()-150000,
-        downTill: Date.now()-100000
-    }
-    
-]
-type FormatedData = {
-    arg: number,
-    val: number
-}
-
 const flattedData = (data: (DownTime|{downSince:number}|{downTill:number})[]):FormatedData[] => {
   
    if(!data){
@@ -114,48 +95,20 @@ const flattedData = (data: (DownTime|{downSince:number}|{downTill:number})[]):Fo
 
 }
 
-const getProgressiveAnimation = (dataLength:number, Totalduration: number) => {
-
-
-  const delayBetweenPoints = Totalduration / dataLength;
-  const previousY = (ctx: any) =>
-    ctx.index === 0
-      ? ctx.chart.scales.y.getPixelForValue(100)
-      : ctx.chart
-          .getDatasetMeta(ctx.datasetIndex)
-          .data[ctx.index - 1].getProps(["y"], true).y;
+const getFormatedDateObject = (argument:number, value:1|0):FormatedData=>{
   return {
-    x: {
-      type: "number",
-      easing: "linear",
-      duration: delayBetweenPoints,
-      from: NaN, // the point is initially skipped
-      delay(ctx: any) {
-        if (ctx.type !== "data" || ctx.xStarted) {
-          return 0;
-        }
-        ctx.xStarted = true;
-        return ctx.index * delayBetweenPoints;
-      },
-    },
-    y: {
-      type: "number",
-      easing: "linear",
-      duration: delayBetweenPoints,
-      from: previousY,
-      delay(ctx: any) {
-        if (ctx.type !== "data" || ctx.yStarted) {
-          return 0;
-        }
-        ctx.yStarted = true;
-        return ctx.index * delayBetweenPoints;
-      },
-    },
-  } as AnimationSpec<ChartType>;
-};
+    arg:argument,
+    val:value
+  }
+
+}
+
 const createDataObject = (args:number[],labels:number[],color:string) =>{
   return {labels, datasets:[{label:"",data:args, borderColor:color}]}
 }
+
+
+
 const createOptionsObject = (dataLength:number, animationDuration:number) =>{
   
  return {
@@ -163,60 +116,20 @@ const createOptionsObject = (dataLength:number, animationDuration:number) =>{
   maintainAspectRatio:false,
   resizeDelay:1,
   animation: getProgressiveAnimation(dataLength,animationDuration),
-  transitions: {
-    show: {
-      animations: {
-        x: {
-          from: 0
-        },
-        y: {
-          from: 0
-        }
-      }
-    }},
   scales: {  
     
-    y: {
-      ticks: {
-        display:false,
-        color:"white"
-      },
-      grid:{
-        display:false
-      }
-    },
+    y: getTicksObject(false,false),
     x: {
       type: "time",
-      ticks: {
-        display:false
-      },
-      grid:{
-        display:false
-      }
+      ...getTicksObject(false,false)
     },
   },
   plugins: {
     legend: { display: false },
     tooltip: {
       callbacks: {
-        label: function(context:TooltipItem<"line">) {
-          if (context.parsed.y === 1) {
-            return "Dostepny";
-          } else {
-            return "Niedostepny";
-          }
-        },
-        labelColor: function(context:TooltipItem<"line">) {
-          const color = context.parsed.y === 1 ? "green" : "red";
-
-          return {
-            borderColor: "rgb(0,0,0,0)",
-            backgroundColor: color,
-            borderWidth: 2,
-            borderDash: [2, 2] as [number,number],
-            borderRadius: 2,
-          };
-        },
+        label:  getAvailabilityLabelText("Dostępny","Niedostępny"),
+        labelColor:getAvailabilityLabelColor(globalColors.brightGreen, globalColors.brightRed),
       },
     },
   },
@@ -224,57 +137,73 @@ const createOptionsObject = (dataLength:number, animationDuration:number) =>{
 
 }
 
-const getFormatedDateObject = (argument:number, value:1|0):FormatedData=>{
-    return {
-      arg:argument,
-      val:value
-    }
+const getTicksObject = (
+  displayTick: boolean,
+  displayGrid: boolean,
+  color?: string
+) => {
+  return {
+    ticks: {
+      display: displayTick,
+      color: color,
+    },
+    grid: {
+      display: displayGrid,
+    },
+  };
+};
 
+const getAvailabilityLabelText =
+  (labelWhenOn: string, labelWhenOff: string) =>(context: TooltipItem<"line">) => {
+    if (context.parsed.y === 1) {
+      return labelWhenOn;
+    } else {
+      return labelWhenOff;
+    }
+  };
+const getAvailabilityLabelColor =
+  (colorWhenOn: string, colorWhenOff: string) =>(context: TooltipItem<"line">) => {
+    const color =
+      context.parsed.y === 1
+        ? colorWhenOn
+        : colorWhenOff;
+
+    return {
+      borderColor: "rgb(0,0,0,0)",
+      backgroundColor: color,
+    };
+  };
+
+
+const getProgressiveAnimation = (dataLength:number, Totalduration: number) => {
+
+  const delayBetweenPoints = Totalduration / dataLength;
+
+  return {
+    x: getAxisAnimation("number","linear",delayBetweenPoints,NaN),
+    y: getAxisAnimation("number","linear",delayBetweenPoints,previousY)
+  } as AnimationSpec<ChartType>;
+};
+
+const getAxisAnimation = (type:string, easing:string, duration:number, from:any)=>{
+  return {
+    type: type,
+    easing: easing,
+    duration: duration,
+    from: from, // the point is initially skipped
+    delay(ctx: any) {
+      if (ctx.type !== "data" || ctx.xStarted) {
+        return 0;
+      }
+      ctx.xStarted = true;
+      return ctx.index * duration;
+    },
+  }
 }
 
-/*
-(<Position>
-            <Chart type={'line'} ref={chartRef} style={{backgroundColor:"rgba(0,0,0,0)"}} 
-            options={{scales:{yAxis:{display:false},
-                y:{ticks: {
-                callback: function(value, index,ticks){
-                    if(value===1){
-                        return "Dostępny"
-                    }else if(value==0){
-                        return "Niedostępny"
-                    }
-                }
-            }
-        }, x:{type:"time", ticks:{
-                autoSkip:true,
-                maxRotation:60,
-                minRotation:60
-            },time:{unit:"minute", displayFormats:{
-                minute:"DD MMMM HH:mm"
-            }}}}, plugins:{legend:{display:false}, tooltip:{
-                callbacks:{
-                    label: function(context){
-                        
-                        if(context.parsed.y==1){
-                            return "Dostepny"
-                        }else{
-                            return "Niedostepny"
-                        }
-                    },
-                    labelColor: function(context){
-
-                        const color = context.parsed.y==1?"green":"red"
-
-                        return {
-                            borderColor: "rgb(0,0,0,0)",
-                            backgroundColor: color,
-                            borderWidth: 2,
-                            borderDash: [2, 2],
-                            borderRadius: 2,
-                    }
-                    }
-                }
-            }}}}
-            data={{labels, datasets:[{label:"",data:args, borderColor:grad, yAxisID:"yAxis"}]}} />
-            </Position>)
-*/
+const previousY = (ctx: any) =>
+  ctx.index === 0
+    ? ctx.chart.scales.y.getPixelForValue(100)
+    : ctx.chart
+        .getDatasetMeta(ctx.datasetIndex)
+        .data[ctx.index - 1].getProps(["y"], true).y;
