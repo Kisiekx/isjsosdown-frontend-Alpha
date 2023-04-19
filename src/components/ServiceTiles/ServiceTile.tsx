@@ -47,12 +47,14 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 <StatsContainer>
                     <ServiceStats>status: {props.serviceData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
+                    <ServiceStats>czas działania: Test</ServiceStats>
+                
                     {isFailingServiceType(props.serviceData)?
                         <ServiceStats>czas rozpoczęcia awarii: {props.serviceData.downSinceDate}</ServiceStats>
-                        :""
+                        :<br/>
                     }
-                    <ServiceStats>czas działania: Test</ServiceStats>
                 </StatsContainer>
+                   
 
                 <ChartContainer>
                     <AvailabilityChart downtimes={props.serviceData.downtimes}/>

@@ -11,6 +11,7 @@ import {IServiceData} from "../../types/main.types";
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
 import { isFailingServiceType } from '../../lib/typeGuards';
+import { AvailabilityChart } from '../AvailabilityCharts/AvailabilityChart';
 
 interface JSOStileProps {
     jsosData: IServiceData
@@ -41,15 +42,16 @@ export const JsosTile = (props: JSOStileProps) => {
                 <StatsContainer>
                     <ServiceStats>status:  {props.jsosData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.jsosData?.uptime}%</ServiceStats>
+                    <ServiceStats>czas działania: Test</ServiceStats>
                     {isFailingServiceType(props.jsosData)?
                         <ServiceStats>czas rozpoczęcia awarii: {props.jsosData.downSinceDate}</ServiceStats>
-                        :""
+                        :<br/>
                     }
-                    <ServiceStats>czas działania: Test</ServiceStats>
+                    
                 </StatsContainer>
 
                 <ChartContainer>
-
+                    <AvailabilityChart downtimes={props.jsosData.downtimes}/>
                 </ChartContainer>
 
             </JsosTileContainer>

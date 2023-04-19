@@ -6,80 +6,18 @@ import { IMessage } from "@stomp/stompjs";
 import { getDetailedDate } from "../../lib/dateFormatting";
 
 
-const switchElementToTop = (arr:any[], comparator:(arg:any)=>boolean)=>{
-    const indexOfElementToSwitch = arr.findIndex(comparator)
-
-            if(indexOfElementToSwitch>-1){
-                [arr[0],arr[indexOfElementToSwitch]]= [arr[indexOfElementToSwitch], arr[0]]
-            }
-}
-
-const getServiceNameToTop=(name:string)=>(service:IServiceData)=>{
-    return service.title===name
-}
 
 
 export const useHomeLogic = () => {
 
     const [services, setServices] = useState<IServiceData[]>([])
     
-    const formatServices = (services: IServiceDataRaw[], isActive: boolean):IServiceData[] => {
-        
-        return services.map((service:IServiceDataRaw)=>{
-            if(isFailingServiceType(service)){
-                return {...service, isActive: isActive, 
-                    downSinceDate: getDetailedDate(service.downSince),
-                     downtimes:service.downtimes.concat({downSince:service.downSince})}
-            }else{
-                return {...(service as IWorkingServiceData), isActive: isActive} 
-            }
-        })
-            
-    }
+    
 
     const updateFromWebSockets=(message:IMessage)=>{
         
         console.log(JSON.parse(message.body))
-
-        setServices((servicesArg:IServiceData[])=>{
-            
-            const messageValue = JSON.parse(message.body)
-            const newServices = [...servicesArg]
-            const updatedService = newServices.find((service:IServiceData)=>service["title"]===messageValue["service"])
-
-            if(updatedService){
-                for(const key of Object.keys(messageValue)){
-                    if(key!=="service"){
-                        updatedService[key]=messageValue[key]
-
-                        if(key==="downSince"){
-                            updatedService.downSince = messageValue.downSince
-                            updatedService.downSinceDate=getDetailedDate(messageValue[key])
-                            updatedService.isActive=false
-                            updatedService.downtimes.push({downSince: messageValue.downSince as number})
-                            if("downSince" in updatedService.downtimes[updatedService.downtimes.length-1]){
-                                updatedService.downtimes.push({downSince: messageValue.downSince as number})
-                            }
-                        }else if(key==="downTill"){
-
-                            delete updatedService.downSince
-                            delete updatedService.downSinceDate
-                            updatedService.isActive=true
-                            if(!("downTill" in updatedService.downtimes[updatedService.downtimes.length-1])){
-                                updatedService.downtimes.push({downTill: messageValue.downTill as number})
-                            }
-                            
-
-                        }
-                    }
-                    
-                
-                }
-            }
-            switchElementToTop(newServices, getServiceNameToTop("jsos"))
-
-            return newServices
-            })
+        setServices(updateServicesUponWebsocketMessage(message))
         
 
     }
@@ -106,11 +44,92 @@ export const useHomeLogic = () => {
         connectToWebsocket(updateFromWebSockets);
     },[])
     
-    console.log(services)
+    //console.log(services)
 
     return services
 
 }
+
+
+const switchElementToTop = (arr:any[], comparator:(arg:any)=>boolean)=>{
+    const indexOfElementToSwitch = arr.findIndex(comparator)
+
+            if(indexOfElementToSwitch>-1){
+                [arr[0],arr[indexOfElementToSwitch]]= [arr[indexOfElementToSwitch], arr[0]]
+            }
+}
+
+const getServiceNameToTop=(name:string)=>(service:IServiceData)=>{
+    return service.title===name
+}
+
+const updateServicesUponWebsocketMessage =
+  (message: IMessage) => (oldState: IServiceData[]) => {
+    const messageValue = JSON.parse(message.body);
+    const newServices = [...oldState];
+    const updatedService = newServices.find(
+      (service: IServiceData) => service["title"] === messageValue["service"]
+    );
+
+    if (updatedService) {
+      for (const key of Object.keys(messageValue)) {
+        if (key !== "service") {
+          updatedService[key] = messageValue[key];
+          let lastDowntime = getLastDowntime(updatedService);
+
+          if (key === "downSince") {
+            updatedService.downSince = messageValue.downSince;
+            updatedService.downSinceDate = getDetailedDate(messageValue[key]);
+            updatedService.isActive = false;
+            if (
+              !(
+                "downSince" in lastDowntime &&
+                lastDowntime.downSince === messageValue.downSince
+              )
+            ) {
+              updatedService.downtimes = updatedService.downtimes.concat({
+                downSince: messageValue.downSince as number,
+              });
+            }
+          } else if (key === "downTill") {
+                delete updatedService.downSince;
+                delete updatedService.downSinceDate;
+                updatedService.isActive = true;
+                if (!(
+                    "downTill" in lastDowntime &&
+                    lastDowntime.downTill === messageValue.downTill
+                )) {
+                    updatedService.downtimes = updatedService.downtimes.concat({
+                    downTill: messageValue.downTill as number,
+                    });
+                }
+          }
+        }
+      }
+    }
+    switchElementToTop(newServices, getServiceNameToTop("jsos"));
+
+    return newServices;
+  };
+
+const formatServices = (services: IServiceDataRaw[], isActive: boolean):IServiceData[] => {
+        
+    return services.map((service:IServiceDataRaw)=>{
+        if(isFailingServiceType(service)){
+            return {...service, isActive: isActive, 
+                downSinceDate: getDetailedDate(service.downSince),
+                 downtimes:service.downtimes.concat({downSince:service.downSince})}
+        }else{
+            return {...(service as IWorkingServiceData), isActive: isActive} 
+        }
+    })
+        
+}
+
+const getLastDowntime=(service:IServiceData)=>{
+    return service.downtimes[service.downtimes.length-1]
+}
+
 
 /*
 const exampleServices: IServiceData[] = [

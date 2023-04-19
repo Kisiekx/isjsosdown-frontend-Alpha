@@ -10,13 +10,14 @@ export const TileContainer = styled.div`
   flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
-  height: 32vh;
+  //grid-template-rows: 2rem 5rem 10rem;
+  height: 33vh;
   width: auto;
   min-width: 25vh;
   border-radius: 20px;
   color: white;
-  padding: 1vh 1vh 1vh 2vh;
   overflow: auto;
+  padding: 0.5rem;
 `
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
@@ -30,6 +31,7 @@ export const TopTileWrapper = styled.div`
   grid-area: 1;
   width: 100%;
   display: flex;
+  height:100%;
   align-items: center;
   justify-content: space-between;
 `
@@ -52,7 +54,7 @@ export const StatusDot = styled.div<{ invisible?: boolean, color?: string }>`
 
 export const StatsContainer = styled.div`
   height: auto;
-  padding: 0;
+  padding: 0.5rem;
 `
 
 export const ServiceStats = styled.p`
