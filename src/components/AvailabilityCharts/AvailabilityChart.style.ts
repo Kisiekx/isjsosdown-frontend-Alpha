@@ -1,13 +1,11 @@
+import { Chart } from "react-chartjs-2";
 import styled from "styled-components";
 
-export const Position = styled("div")`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: auto;
-    font-size: 1vw;
-`
 export type formatedData = {
     arg: number,
     val: number
 }
+
+export const LinearChart = styled(Chart)`
+    max-height: 5rem;
+`

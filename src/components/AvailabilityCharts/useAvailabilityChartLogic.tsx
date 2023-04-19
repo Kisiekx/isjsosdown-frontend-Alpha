@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect,useLayoutEffect,useState } from 'react';
 import 'chartjs-adapter-moment';
 import { _DeepPartialObject } from 'chart.js/types/utils';
 

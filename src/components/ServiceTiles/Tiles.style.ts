@@ -7,17 +7,19 @@ export const TileContainer = styled.div`
   background: url(${gradient});
   background-size: cover;
   background-attachment: fixed;
-  flex-grow: 1;
+  //flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
   //grid-template-rows: 2rem 5rem 10rem;
-  height: 33vh;
-  width: auto;
-  min-width: 25vh;
+  height: 30vh;
+  min-width: 24vw;
+  max-width: 18rem;
+  min-height: 15rem;
   border-radius: 20px;
   color: white;
   overflow: auto;
   padding: 0.5rem;
+  margin: auto;
 `
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
@@ -66,7 +68,7 @@ export const ServiceStats = styled.p`
 
 export const ChartContainer = styled.div`
   position:relative;
-  resize: both;
+  max-height: 10rem;
 `
 
 export const LinkWrapper = styled(NavLink)`

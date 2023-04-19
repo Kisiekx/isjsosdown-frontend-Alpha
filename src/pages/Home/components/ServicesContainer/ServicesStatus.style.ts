@@ -8,7 +8,8 @@ export const Gradient = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  //justify-content: space-evenly;
+  justify-content: center;
   gap: 4vh 1.5vw;
   padding: 4vh 20vw 4vh 20vw;
   width: 100%;
