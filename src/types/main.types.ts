@@ -26,7 +26,7 @@ export interface IFailingServiceData extends IWorkingServiceData{
     downSinceDate: string
 }
 
-export type IServiceData =   IWorkingServiceData | IFailingServiceData
+export type IServiceData = IWorkingServiceData | IFailingServiceData
 
 export interface IServicesData{
     services : IServiceData[]
