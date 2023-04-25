@@ -40,7 +40,7 @@ export const JsosTile = (props: JSOStileProps) => {
                 </TopTileWrapper>
 
                 <StatsContainer>
-                    <ServiceStats>status:  {props.jsosData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
+                    <ServiceStats>status:  {props.jsosData.isActive ? "aktywny" : "nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.jsosData?.uptime}%</ServiceStats>
                     <ServiceStats>czas działania: Test</ServiceStats>
                     {isFailingServiceType(props.jsosData)?
