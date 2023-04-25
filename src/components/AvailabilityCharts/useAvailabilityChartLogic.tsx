@@ -76,7 +76,7 @@ const flattedData = (data: (DownTime|{downSince:number}|{downTill:number})[]):Fo
    if(!data){
       return []
    }else{
-    return  data.reduce((accum:FormatedData[], current)=>{
+    return  data.reduce((accum:FormatedData[], current) => {
 
       if("downSince" in current){
         accum.push(getFormatedDateObject(current.downSince,1))
