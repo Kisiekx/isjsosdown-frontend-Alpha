@@ -11,12 +11,6 @@ export const websocketChannel = "/topic/test"
 
 
 export async function getFetch(endpoint: string, params = {}) {
-    /*return axios({
-        url: url + endpoint,
-        method: "GET",
-        params: params
-    }).then((res: { data: any }) => res.data)
-    */
     const response = await axios({
         url: url + endpoint,
         method: "GET",
