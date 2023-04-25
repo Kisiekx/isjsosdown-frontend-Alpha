@@ -45,7 +45,7 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 </TopTileWrapper>
 
                 <StatsContainer>
-                    <ServiceStats>status: {props.serviceData.isActive?"aktywny":"nie aktywny"}</ServiceStats>
+                    <ServiceStats>status: {props.serviceData.isActive ? "aktywny" : "nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
                     <ServiceStats>czas działania: Test</ServiceStats>
                 
