@@ -7,27 +7,33 @@ export const TileContainer = styled.div`
   background: url(${gradient});
   background-size: cover;
   background-attachment: fixed;
-  flex-grow: 1;
+  //flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 1fr 2fr;
-  padding: 1vh;
-  height: 25vh;
-  width: auto;
-  min-width: 25vh;
+  //grid-template-rows: 2rem 5rem 10rem;
+  height: 30vh;
+  min-width: 24vw;
+  max-width: 18rem;
+  min-height: 15rem;
   border-radius: 20px;
   color: white;
+  overflow: auto;
+  padding: 0.5rem;
+  margin: auto;
 `
 export const JsosTileContainer = styled(TileContainer)`
   flex-grow: 0;
   background: white;
-  aspect-ratio: 1.75;
   color: black;
+  position: relative;
+  min-width: max(20em, 20vw);
 `
 
 export const TopTileWrapper = styled.div`
   grid-area: 1;
   width: 100%;
   display: flex;
+  height:100%;
   align-items: center;
   justify-content: space-between;
 `
@@ -50,21 +56,19 @@ export const StatusDot = styled.div<{ invisible?: boolean, color?: string }>`
 
 export const StatsContainer = styled.div`
   height: auto;
-  padding: 0;
+  padding: 0.5rem;
 `
 
 export const ServiceStats = styled.p`
   font-family: 'Satoshi-Variable';
   font-weight: lighter;
   padding: 0;
-  font-size: 0.8vw;
+  font-size: 1rem;
 `
 
 export const ChartContainer = styled.div`
-  background-color: red;
-  padding: 1vh;
-  width: 100%;
-  height: 100%;
+  position:relative;
+  max-height: 10rem;
 `
 
 export const LinkWrapper = styled(NavLink)`

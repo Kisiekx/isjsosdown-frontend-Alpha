@@ -10,6 +10,8 @@ import {
 import {IServiceData} from "../../types/main.types"
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
+import { isFailingServiceType } from '../../lib/typeGuards';
+import { AvailabilityChart } from '../AvailabilityCharts/AvailabilityChart';
 
 export interface ServiceTileProps {
     serviceData: IServiceData
@@ -21,9 +23,14 @@ export const ServiceTile = (props: ServiceTileProps) => {
 
     useEffect(() =>{
         setActivityColor(
-            props.serviceData?.isActive ? globalColors.green : globalColors.red
+            props.serviceData?.isActive ? globalColors.brightGreen : globalColors.brightRed
         )
-    }, [props.serviceData])
+        
+    },[props.serviceData.isActive])
+
+    useEffect(()=>{
+        console.log(props.serviceData.downtimes)
+    })
 
     return (
         <>
@@ -32,20 +39,25 @@ export const ServiceTile = (props: ServiceTileProps) => {
                 <TopTileWrapper>
                     <StatusDot invisible={true}/>
                     <TileName>
-                        {props.serviceData.name}
+                        {props.serviceData.title}
                     </TileName>
                     <StatusDot color={activityColor}/>
                 </TopTileWrapper>
 
                 <StatsContainer>
-                    <ServiceStats>status: aktywny</ServiceStats>
+                    <ServiceStats>status: {props.serviceData.isActive ? "aktywny" : "nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.serviceData.uptime}%</ServiceStats>
-                    <ServiceStats>ostatnia awaria: {props.serviceData.lastActive.toDateString()}</ServiceStats>
                     <ServiceStats>czas działania: Test</ServiceStats>
+                
+                    {isFailingServiceType(props.serviceData)
+                        ? <ServiceStats>czas rozpoczęcia awarii: {props.serviceData.downSinceDate}</ServiceStats>
+                        : <br/>
+                    }
                 </StatsContainer>
+                   
 
                 <ChartContainer>
-
+                    <AvailabilityChart downtimes={props.serviceData.downtimes}/>
                 </ChartContainer>
 
             </TileContainer>

@@ -10,9 +10,11 @@ import {
 import {IServiceData} from "../../types/main.types";
 import {useEffect, useState} from "react";
 import {globalColors} from "../../assets/globalStyleVariables";
+import { isFailingServiceType } from '../../lib/typeGuards';
+import { AvailabilityChart } from '../AvailabilityCharts/AvailabilityChart';
 
 interface JSOStileProps {
-    jsosData?: IServiceData
+    jsosData: IServiceData
 }
 
 export const JsosTile = (props: JSOStileProps) => {
@@ -23,7 +25,7 @@ export const JsosTile = (props: JSOStileProps) => {
         setActivityColor(
             props.jsosData?.isActive ? globalColors.green : globalColors.red
         )
-    }, [props.jsosData])
+    }, [props.jsosData.isActive])
 
     return (
         <>
@@ -32,20 +34,24 @@ export const JsosTile = (props: JSOStileProps) => {
                 <TopTileWrapper>
                     <StatusDot invisible={true}/>
                     <TileName>
-                        {props.jsosData?.name}
+                        {props.jsosData?.title}
                     </TileName>
                     <StatusDot color={activityColor}/>
                 </TopTileWrapper>
 
                 <StatsContainer>
-                    <ServiceStats>status: aktywny</ServiceStats>
+                    <ServiceStats>status:  {props.jsosData.isActive ? "aktywny" : "nie aktywny"}</ServiceStats>
                     <ServiceStats>uptime: {props.jsosData?.uptime}%</ServiceStats>
-                    <ServiceStats>ostatnia awaria: {props.jsosData?.lastActive.toDateString()}</ServiceStats>
                     <ServiceStats>czas działania: Test</ServiceStats>
+                    {isFailingServiceType(props.jsosData)?
+                        <ServiceStats>czas rozpoczęcia awarii: {props.jsosData.downSinceDate}</ServiceStats>
+                        :<br/>
+                    }
+                    
                 </StatsContainer>
 
                 <ChartContainer>
-
+                    <AvailabilityChart downtimes={props.jsosData.downtimes}/>
                 </ChartContainer>
 
             </JsosTileContainer>
