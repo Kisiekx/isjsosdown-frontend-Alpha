@@ -98,7 +98,6 @@ const getFormatedDateObject = (argument: number, value: 1 | 0): FormatedChartDat
     arg: argument,
     val: value
   }
-
 }
 
 const createDataObject = (args: number[], labels: number[], color: string) => {
