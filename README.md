@@ -6,7 +6,7 @@
 
 Welcome to the snapshot of `isJsosDown` project repository! This project is a web application for real-time monitoring of the availability of IT services of Polish universities, along with detailed statistics.
 
-Check out isJsosDown at: https://isjsosdown.azurewebsites.net/
+Live demo: https://isjsosdown.wmsdev.pl
 
 ## 🚀 Getting started
 
